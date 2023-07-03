@@ -1,0 +1,55 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'order_confirmation.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="headings">
+    <h1>Order Submitted!</h1>
+    <p>Thank you for your order!</p>
+    <p>Your order will be ready in 40 Minutes.</p>
+  </div>
+
+
+
+  <div class="confirmation">
+    <br>
+    <br>
+    <div class="order-info">
+      <h2>Order Summary</h2>
+      {% for order in orders %}
+        <p>Order ID: {{ order.id }}</p>
+        <p>Order placed on: {{ order.created_on }}</p>
+        <p>Ordered From: {{ order.restaurant.name }} </p>
+        <p>Special instructions: {{ order.special_instructions }}</p>
+        <p>Type of order: {{ order.order_type }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="order-summary">
+      {% for item in items %}
+        <div class="order-item">
+            <p>
+                {{ item.name }}
+                <span class="item-details">KSH:{{ item.price }}</span>
+                <span class="item-details">{{ item.calories }} kcals</span>
+                <span class="item-details">{{ item.protein }}g</span>
+                <span class="item-details">{{ item.carbs }}g</span>
+                <span class="item-details">{{ item.fat }}g</span>
+            </p>   
+        </div>
+      {% endfor %}
+      <p class="font-weight-bold pt-4">Total amount: KSH {{ price }}</p>
+      <p class="font-weight-bold pt-4">Total calories: {{ calories }}g</p>
+      <p class="font-weight-bold pt-4">Total protein: {{ protein }}g</p>
+      <p class="font-weight-bold pt-4">Total carbs: {{ carbs }}g</p>
+      <p class="font-weight-bold pt-4">Total fat: {{ fat }}g</p>
+    </div>
+  </div>
+{% endblock %}

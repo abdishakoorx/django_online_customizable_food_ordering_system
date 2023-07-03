@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    
+    <div class="container">
+        <h1 style="text-align: center;padding-top: 40px;font-size: 36px;margin-bottom: 30px; ">Signup Page</h1>
+
+        <div class="signup-links" style="display: flex ;justify-content: center;">
+            <a href="{% url 'signup_customer' %}" class="signup-link" style="margin: 0 10px;font-size: 24px;text-decoration: none;color: #000;border: 2px solid #000;padding: 10px 20px;border-radius: 5px;transition: background-color 0.3s ease;">Signup for customer account</a>
+            <a href="{% url 'signup_restaurant' %}" class="signup-link" style="margin: 0 10px;font-size: 24px;text-decoration: none;color: #000;border: 2px solid #000;padding: 10px 20px;border-radius: 5px;transition: background-color 0.3s ease;">Signup for restaurant account</a>
+        </div>
+    </div>
+    
+</body>
+{% endblock %}

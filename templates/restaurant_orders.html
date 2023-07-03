@@ -1,0 +1,67 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'rest1.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+{% endblock %}
+
+{% block content %}
+  <div class="headings">
+    <h1>Welcome!</h1>
+    <p>Here are your orders.</p>
+    <p></p>
+  </div>
+
+  {% for order in orders %}
+    <div class="order">
+      <div class="order-labelss">
+        <p>Order #: {{ order.pk }}</p>
+        <p>Date: {{ order.created_on }}</p>
+      </div>
+      <p class="order-info">Order Type: <{{ order.order_type }}</p>
+      <p class="order-info">Customer: <{{ order.customer }}</p>
+      <p class="order-info">Special Instructions: {{ order.special_instructions }}</p>
+      <p class="order-info">Total price: KSH {{ order.price }}</p>
+      <p class="order-info">Status: {{ order.order_status }}</p>
+
+      <h4 style="margin-top: 20px;">Menu Items:</h4>
+      <ul style="margin-bottom: 20px;">
+        {% for item in order.menu_items.all %}
+          {% if not item.displayed %}
+            <li><strong >{{ item.name }}</strong> - Price: KSH <strong>{{ item.price }}</strong></li>
+            <h4 style="margin-top: 10px;">Reviews:</h4>
+            <div class="reviews">
+              {% for review in item.reviews.all %}
+                <p>Customer: <strong>{{ review.customer_name.username }}</strong></p>
+                <p>Rating: <strong>{{ review.rating }}</strong></p>
+                <p>Review: <strong>{{ review.review_text }}</strong></p>
+                <p>Submitted: <strong>{{ review.timestamp|timesince }}</strong> ago</p>
+                <hr>
+              {% empty %}
+                <li>No reviews for this item yet.</li>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% empty %}
+          <li>No menu items found.</li>
+        {% endfor %}
+      </ul>
+
+      <form action="{% url 'order_statuss'  %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="order_id" value="{{ order.pk }}">
+        <label for="order_status">Update Status:</label>
+        <select name="order_status" id="order_status">
+          <option value="ORDER_PREPARING">Order is being prepared</option>
+          <option value="ORDER_READY">Order is ready for you</option>
+          <option value="ORDER_DISPATCHED">Order dispatched</option>
+        </select>
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  {% endfor %}
+{% endblock %}

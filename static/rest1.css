@@ -1,0 +1,125 @@
+.headings {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.headings h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.headings p {
+  font-size: 18px;
+  color: #666;
+}
+
+.container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    font-weight: bold;
+  }
+  
+  .container h1 {
+    color: #333;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .order {
+    border: 2px solid #3c00a0; /* Add border style */
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  
+  .order-info {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .order-info:first-child {
+    font-weight: bold;
+  }
+  
+  .order-info:last-child {
+    margin-bottom: 10px;
+  }
+  
+  .order h4 {
+    margin: 10px 0;
+  }
+  
+  .order ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .order li {
+    margin-bottom: 5px;
+  }
+  
+  .order form {
+    margin-top: 10px;
+  }
+  
+  .order label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .order select,.order button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+  .order select {
+    margin-right: 10px;
+  }
+  
+  .order button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 31px;
+  }
+  
+  .order button:hover {
+    background-color: #45a049;
+  }
+
+  .order-labelss {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .reviews {
+    margin-bottom: 25px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+  }
+  
+  .reviews p {
+    margin: 5px 0;
+  }
+  
+  .reviews hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+  }

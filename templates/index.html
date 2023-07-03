@@ -1,0 +1,197 @@
+{% load static %}
+{% static "images" as baseUrl%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+    <title>Online Customizable Food Ordering System</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1><a href="/"><img src="{{baseUrl}}/logo.jpg" alt="" id=""></a></h1>
+            <div class="logo1">
+                <h1>CustomDishes</h1>
+                <h3>Your order, Your way, Every day</h3>
+            </div>
+        </div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}" class="active">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'signup' %}">Signup</i></a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="area">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+    <div class="recommendation">
+        <div class = "restaurants">
+            <div class="heading"><h2>Featured Restaurants</h2></div>
+            <div class="restflex">
+                <div class="rest one">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexkapital.jpg" alt="" id=""></a></h1>
+                    <h3>Kapital Cofee</h3>
+                    <p>Captain Mungai Street, Eastleigh.</p>
+                </div>
+                <div class="rest two">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexstarex.jpeg" alt="" id=""></a></h1>
+                    <h3>Starex Cafe & Restaurant</h3>
+                    <p>Mweni Road, Eastleigh.</p>
+                </div><div class="rest three">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexhashkies.jpeg" alt="" id=""></a></h1>
+                    <h3>Hashkies</h3>
+                    <p>Eastleigh, General Waruingi Road.</p>
+                </div>
+            </div>
+        </div>
+        <div class = "breakfast">
+            <div class="heading1"><h2>Popular Breakfast Items</h2></div>
+            <div class="breakfastflex">
+                <div class="break one">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexsausage.jpeg" alt="" id=""></a></h1>
+                    <h3>BREAKFAST PANCAKE SAMPLER.........KSH 900</h3>
+                    <p>2 pancakes or chapatis, 2 eggs, 2 sausages, baked beans and home fries.</p>
+                    <p>1100  Calories <br>32g  Protein<br>98g  Carbs<br>142g  Fat</p>
+                </div><div class="break two">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexbowl.jpeg" alt="" id=""></a></h1>
+                    <h3>FRUIT AND NUT GRANOLA BOWL.........KSH 700</h3>
+                    <p>Oats, raisins, mixed nuts, natural yoghurt, fresh fruits, and tahini syrup. </p>
+                    <p>500  Calories <br>18g  Protein<br>75g  Carbs<br>15g  Fat</p>
+                </div><div class="break three">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexalmond.jpeg" alt="" id=""></a></h1>
+                    <h3>ALMOND CHOCOLATE CROISSANT.........KSH 310</h3>
+                    <p>Croissant with Almond filling, Chocolate and Almonds.</p>
+                    <p>338  Calories <br>8g  Protein<br>32g  Carbs<br>18g  Fat</p>
+                </div><div class="break four">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexpancakes.jpg" alt="" id=""></a></h1>
+                    <h3>STRAWBERRY BANANA PANCAKE.........KSH 690</h3>
+                    <p>Buttermilk pancakes topped with banana slices, strawberries and a dollop of cream.</p>
+                    <p>386  Calories <br>9g  Protein<br>58g  Carbs<br>8g  Fat</p>
+                </div>
+            </div>
+        </div>
+        <div class = "lunch">
+            <div class="heading1"><h2>Popular Lunch & Dinner Items</h2></div>
+            <div class="lunchflex">
+                <div class="lunchx one">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexburger.jpg" alt="" id=""></a></h1>
+                    <h3>BEEF BURGER SINGLE TRADITIONAL.........KSH 1100</h3>
+                    <p>Grilled beef burger patty with crisp lettuce, tomatoes, caramelized onion and mayonnaise, with a side of onion rings and fries.</p>
+                    <p>900  Calories <br>23g  Protein<br>93g  Carbs<br>61g  Fat</p>
+                </div><div class="lunchx two">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexsteak.jpg" alt="" id=""></a></h1>
+                    <h3>MUSHROOM BEEF STEAK.........KSH 1640</h3>
+                    <p>Tender and juicy beef fillet steak cooked to your preference. Served with mushroom sauce and choice of fries or mashed potatoes or rice. </p>
+                    <p>880  Calories <br>32g  Protein<br>74g  Carbs<br>28g  Fat</p>
+                </div><div class="lunchx three">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexfish.jpg" alt="" id=""></a></h1>
+                    <h3>FISH CURRY.........KSH 1390</h3>
+                    <p>Tilapia Fillet cut into cubes, in a creamy mild coconut curry</p>
+                    <p>589  Calories <br>24g  Protein<br>37g  Carbs<br>23g  Fat</p>
+                </div><div class="lunchx four">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexchicken.jpg" alt="" id=""></a></h1>
+                    <h3>CHICKEN ALFREDO.........KSH 1490</h3>
+                    <p>Rich parmesan cream sauce, chicken strips and mushroom</p>
+                    <p>770  Calories <br>29g  Protein<br>51g  Carbs<br>38g  Fat</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class = "vegetarian">
+            <div class="heading1"><h2>Popular Vegetarian Items</h2></div>
+            <div class="vegetarianflex">
+                <div class="veg one">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexvegcurry.jpg" alt="" id=""></a></h1>
+                    <h3>VEGETABLE CURRY.........KSH 1380</h3>
+                    <p>Chunks of fresh vegetables and paneer or tofu in a coconut curry sauce.</p>
+                    <p>410  Calories <br>16g  Protein<br>34g  Carbs<br>17g  Fat</p>
+                </div><div class="veg two">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexveggrill.jpg" alt="" id=""></a></h1>
+                    <h3>GRILLED VEGETABLE CLUB.........KSH 1090</h3>
+                    <p>Oyster button mushrooms, green peppers, mayo, onions, vegan cheese, carrots, zucchini with side of fries. </p>
+                    <p>590  Calories <br>17g  Protein<br>64g  Carbs<br>35g  Fat</p>
+                </div><div class="veg three">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexvegq.jpg" alt="" id=""></a></h1>
+                    <h3>SOUTHWESTERN QUESADILLA VEGGIE.........KSH 1170</h3>
+                    <p>Mushrooms with grilled onions and vegan cheese in tortillas. Served with fries, sour cream, salsa and guacamole.</p>
+                    <p>640  Calories <br>19g  Protein<br>39g  Carbs<br>26g  Fat</p>
+                </div><div class="veg four">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexvegsalad.jpg" alt="" id=""></a></h1>
+                    <h3>GREEK SALAD.........KSH 990</h3>
+                    <p>Fresh tomatoes, red onions, cucumbers, green peppers, artichokes, vegan cheese & black olives served on a bed of lettuce.</p>
+                    <p>416  Calories <br>11g  Protein<br>19g  Carbs<br>18g  Fat</p>
+                </div>
+            </div>
+        </div>
+        <div class = "drinks">
+            <div class="heading1"><h2>Popular Drinks</h2></div>
+            <div class="drinksflex">
+                <div class="drink one">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexredvel.jpeg" alt="" id=""></a></h1>
+                    <h3>GOURMET RED VELVET MILKSHAKE.........KSH 490</h3>
+                    <p>Milk and red velvet cake.</p>
+                    <p>570  Calories <br>6g  Protein<br>84g  Carbs<br>21g  Fat</p>
+                </div><div class="drink two">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexlatte.jpg" alt="" id=""></a></h1>
+                    <h3>SINGLE VANILLA LATTE.........KSH 290</h3>
+                    <p>Single shot of espresso and milk.</p>
+                    <p>160  Calories <br>4g  Protein<br>15g  Carbs<br>8g  Fat</p>
+                </div><div class="drink three">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexstraw.jpg" alt="" id=""></a></h1>
+                    <h3>STRAWBERRY LEMONADE.........KSH 690</h3>
+                    <p>Lemon and strawberry juice.</p>
+                    <p>178  Calories <br>0g  Protein<br>21g  Carbs<br>0g  Fat</p>
+                </div><div class="drink four">
+                    <h1><a href="/"><img src="{{baseUrl}}/indexhot.jpg" alt="" id=""></a></h1>
+                    <h3>HOT CHOCOLATE.........KSH 310</h3>
+                    <p>Chocolate and milk.</p>
+                    <p>175  Calories <br>8g  Protein<br>16g  Carbs<br>8g  Fat</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    <footer>
+        <div class="footer_info">
+            
+            <div class="social-media">
+                    <ul>
+                        <li><a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="icon twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="icon instagram"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+            </div>
+        </div>
+        <div class="footerNav">
+
+            <ul> 
+
+                <li><a href="{% url 'about'%}">About us</a></li>
+                <li><a href="{% url 'terms'%}">Terms of Use</a></li>
+                <li><a href="{% url 'privacy'%}">Privacy Policy</a></li>
+                <li><a href="{% url 'contact'%}">Contact Us</a></li>
+            
+                </ul>
+
+        </div>
+        <div class="copyright">
+            <p> @Copyright CustomDishes 2023- All Right Reserved.</p>
+        </div>
+    </footer> 
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'update_order_status.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+{% endblock %}
+
+
+{% block content %}
+  <h1>Update Order Status</h1>
+  <form action="{% url 'order_status'  %}" method="post">
+    {% csrf_token %}
+    <label for="status">Update Status:</label>
+    <input type="hidden" name="order_id" value="{{ order.pk }}">
+    <select name="order_status" id="order_status">
+      <option value="ORDER_PREPARING">Order is being prepared</option>
+      <option value="ORDER_READY">Order is ready for you</option>
+      <option value="ORDER_DISPATCHED">Order dispatched</option>
+    </select>
+    <button type="submit">Update</button>
+  </form>
+{% endblock %}

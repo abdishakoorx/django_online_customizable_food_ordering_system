@@ -1,0 +1,52 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'rest1.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="heading">
+    <h1>Welcome to your history.</h1>
+    <p></p>
+  </div>
+
+  <div class="container">
+    <h1>Previous Orders</h1>
+    <ul>
+      {% for order in orders %}
+        <div class="order">
+            <li>
+                <div class="info">
+                  <p>Order placed on {{ order.created_on }}</p>
+                  <p>Order ID: {{ order.id }}</p>
+                </div>
+                
+                <p style="font-weight: bold; font-size: 18px;">Special instructions: <p>{{ order.instructions }}</p></p>
+                <br>
+                <p style="font-weight: bold; font-size: 18px;">Type of order: <p>{{ order.order_type }}</p></p>
+                <br>
+                <br>
+                <p style="font-weight: bold; font-size: 18px;">Items:</p>
+                <ul>
+                  {% for item in order.items.all %}
+                    <li>{{ item.name }} - {{ item.price }}</li>
+                    <a href="{% url 'write_review' item.id %}">Write a Review</a>
+                  {% endfor %}
+                </ul>
+                <p class="total-price">Total price: {{ order.price }}</p>
+              </li> 
+        </div>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endblock %}
+
+

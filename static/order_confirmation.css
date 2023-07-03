@@ -1,0 +1,110 @@
+.headings {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.headings h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.headings p {
+  font-size: 18px;
+  color: #666;
+}
+
+.previous-orders-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.previous-orders-link:hover {
+  background-color: #45a049;
+}
+
+.previous-orders-link i {
+  margin-right: 10px;
+}
+
+.previous-orders-link span {
+  font-weight: bold;
+}
+
+.confirmation {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .confirmation h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .order-info {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .order-info p {
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  
+  .order-summary {
+    margin-top: 30px;
+  }
+  
+  .order-summary h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .item-details {
+    margin-right: 10px;
+  }  
+
+  .item-details-1{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .order-item {
+    margin-bottom: 10px;
+  }
+  
+  .order-item p {
+    margin-bottom: 5px;
+  }
+  
+  .font-weight-bold {
+    font-weight: bold;
+  }
+  
+  .pt-4 {
+    padding-top: 16px;
+  }
+  

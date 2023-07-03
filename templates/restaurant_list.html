@@ -1,0 +1,31 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% static "images" as baseUrl %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'restaurant_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="headings">
+        <h1>Welcome to CustomDishes!</h1>
+        <p>These are the restaurants available.</p>
+        <p>Click on the restaurant's name to view more about them!</p>
+    </div>
+
+    <div class="restaurant-container">
+        {% for restaurant in restaurants %}
+        <div class="restaurant-item">
+            <img src="{{ restaurant.image.url }}" alt="" class="restaurant-image">
+            <div class="restaurant-details">
+            <a href="{% url 'order' restaurant_id=restaurant.pk %}" class="restaurant-name">{{ restaurant.name }}</a>
+            <p class="restaurant-time">Opening Time: {{ restaurant.opentime }}</p>
+            <p class="restaurant-time">Closing Time: {{ restaurant.closetime }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

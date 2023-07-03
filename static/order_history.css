@@ -1,0 +1,101 @@
+ .order-list {
+    list-style-type: none;
+    padding: 0;
+    background-color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .order-item {
+    margin-bottom: 20px;
+  }
+  
+  .order-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .order-details {
+    border: 3px solid #3c00a0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .order-info {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .price{
+    margin-top: 30px;
+    font-size: 20px;
+    color: #000;
+    font-weight: bolder;
+  }
+
+  .headings {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headings h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 18px;
+  }
+  
+  .headings p {
+    font-size: 18px;
+    color: #666;
+  }
+
+  .menu-item {
+  list-style-type: none;
+  margin-bottom: 10px;
+  }
+
+.menu-item-info {
+  font-weight: bold;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.review-form textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.review-form select, .review-form button {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.review-form select {
+  margin-right: 10px;
+}
+
+.review-form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 31px;
+}
+
+.review-form button:hover {
+  background-color: #45a049;
+}

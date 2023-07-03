@@ -1,0 +1,56 @@
+  .headings {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .headings h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 18px;
+  }
+  
+  .headings p {
+    font-size: 18px;
+    color: #666;
+  }
+
+  .restaurant-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .restaurant-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    margin-left: 100px;
+  }
+  
+  .restaurant-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 8px;
+  }
+  
+  .restaurant-details {
+    flex: 1;
+  }
+  
+  .restaurant-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #3c00a0;
+  }
+  
+  .restaurant-time {
+    margin: 5px 0;
+    color: #666;
+  }
+  

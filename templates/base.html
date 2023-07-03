@@ -1,0 +1,70 @@
+{% load static %}
+{% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+        <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+        {{ block.super }}
+    {% endblock %}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'>
+    <title>Online Customizable Food Ordering System</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1><a href="/"><img src="{{baseUrl}}/logo.jpg" alt="" id=""></a></h1>
+            <div class="logo1">
+                <h1>CustomDishes</h1>
+                <h3>Your order, Your way, Every day</h3>
+            </div>
+        </div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}" class="active" >Home</a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="area">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+    {% block content %}
+
+    {% endblock %}
+    <footer>
+        <div class="footer_info">
+            
+            <div class="social-media">
+                    <ul>
+                        <li><a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="icon twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="icon instagram"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+            </div>
+        </div>
+        <div class="footerNav">
+
+                <ul>
+
+                    <li><a href="{% url 'about' %}">About us</a></li>
+                    <li><a href="{% url 'terms' %}">Terms of Use</a></li>
+                    <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                
+                </ul>
+
+        </div>
+        <div class="copyright">
+            <p> @Copyright CustomDishes 2023- All Right Reserved.</p>
+        </div>
+    </footer>            
+</body>
+</html>

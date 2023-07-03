@@ -1,0 +1,62 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% static "images" as baseUrl %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'order_history.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="headings">
+      <h1>Welcome to your Order History!</h1>
+      <p>We would appreciate a review.</p>
+      <p></p>
+  </div>
+  <ul class="order-list">
+    {% for order in orders %}
+      <li class="order-item">
+        <div class="order-details">
+          <div class="order-label">
+            <p>Order ID: {{ order.pk }}</p>
+            <p> Date: {{ order.created_on }}</p>
+          </div>
+          <p class="order-info">Special Instructions: {{ order.special_instructions }}</p>
+          <p class="order-info">Ordered From: <strong>{{ order.restaurant.name }}</strong></p>
+          <p class="order-info">Status: {{ order.order_status }}</p>
+          <p class="order-info">Total Calories: {{ order.calories }} kcals</p>
+          <h2 style="margin-top: 20px;">Menu Items:</h2>
+          <ul style="margin-bottom: 20px;">
+            {% for item in order.menu_items.all %}
+            <li class="menu-item">
+              <span class="menu-item-info">{{ item.name }} - Price: KSH {{ item.price }}</span>
+              <form action="{% url 'item_review' item_id=item.id %}" method="post" class="review-form">
+                {% csrf_token %}
+                <label for="review">Review:</label>
+                <textarea name="review" id="review" rows="3" cols="40"></textarea>
+                <label for="rating">Rating:</label>
+                <select name="rating" id="rating">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button type="submit">Submit Review</button>
+              </form>
+            </li>
+            
+            {% empty %}
+              <li>No menu items found.</li>
+            {% endfor %}
+
+          <p class="price">Total Price: KSH {{ order.price }}</p>
+
+          </ul>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

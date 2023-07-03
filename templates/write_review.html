@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'write_review.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="headings">
+    <h1>Write a Review.</h1>
+  </div>
+
+  <form method="post" action="{% url 'write_review' item.id %}">
+    {% csrf_token %}
+    
+    <div>
+      <label for="rating">Rating:</label>
+      <select name="rating" id="rating">
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3">3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="review">Review:</label>
+      <textarea name="review" id="review" rows="4"></textarea>
+    </div>
+
+    <div class="thanks"><p>Thank you for your review!</p></div>
+    
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}
