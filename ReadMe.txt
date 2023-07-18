@@ -19,5 +19,5 @@ Note: The system is designed for demonstration purposes only and does not includ
 
 
 
-Thank you again for choosing the Online Customizable Food Ordering System!
+
 
