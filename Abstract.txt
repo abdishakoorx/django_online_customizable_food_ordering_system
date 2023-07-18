@@ -1,0 +1,25 @@
+Project Name: Online Customizable Food Ordering System
+
+
+Overview:
+The Online Customizable Food Ordering System is a web-based platform designed to provide a seamless and personalized experience for customers to order food from various restaurants. The system allows customers to browse through featured restaurants, view their specialties, view each items' calorie information and place their order. It also allows restaurants to publish their menus, receive their orders and dispatch the orders.
+
+
+Key Features:
+- User-friendly interface for easy navigation and order placement.
+- Personalized food options and customizations for each category.
+- Secure user authentication and account management.
+- Multiple restaurant choices with details such as name, location, and specialties.
+- Smooth integration of menus and food items.
+- Efficient order processing and payment methods.
+- Admin panel for managing restaurants, categories, and food items.
+
+
+Objective:
+The goal of this project is to develop an all-encompassing Online Customizable Food Ordering System. It will feature a user-friendly registration module for easy access to services, along with a secure database to store user and order information. The system will provide detailed menus for multiple restaurants and allow users to customize their orders. Additionally, a review system will enable users to provide feedback on their experiences. A key focus is to offer accurate and accessible calorie information for each menu item, promoting informed and healthy food choices. The project aims to create a seamless platform for users to explore diverse restaurants and enjoy a delightful dining experience.
+
+
+This Online Customizable Food Ordering System seeks to revolutionize the way customers interact with restaurants, simplifying the ordering process and fostering a greater sense of choice and satisfaction.
+
+
+
