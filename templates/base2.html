@@ -31,7 +31,15 @@
         <nav>
             <ul>
                 <li>
-                    <a href="{% url 'index' %}" class="active" >Logout</a>
+                    <a href="{% url 'restaurant_profile' %}" >Profile</a>
+                </li>
+                <li>
+                    <a href="{% url 'restaurant_receipt' %}" >Receipts</a>
+                </li>
+                <li>
+                    <a href="{% url 'restaurant_orders' %}" >Orders</a>
+                <li>
+                    <a href="{% url 'logout' %}" class="active" >Logout</a>
                 </li>
             </ul>
         </nav>

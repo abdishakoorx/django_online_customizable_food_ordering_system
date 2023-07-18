@@ -7,61 +7,156 @@
   <link rel="stylesheet" type="text/css" href="{% static 'rest1.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  
+    .order-info {
+      margin: 5px 0;
+    }
+  
+    .order-labels p {
+      margin: 5px 0;
+    }
+  
+    .reviews li {
+      list-style: none;
+      margin: 5px 0;
+    }
+  
+    .reviews hr {
+      margin: 10px 0;
+    }
+  
+    form {
+      margin-top: 10px;
+    }
+  
+    select, button {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+  
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
   <div class="headings">
-    <h1>Welcome!</h1>
+    <h1>Orders for {{ user.username }}</h1>
     <p>Here are your orders.</p>
     <p></p>
   </div>
 
-  {% for order in orders %}
-    <div class="order">
-      <div class="order-labelss">
-        <p>Order #: {{ order.pk }}</p>
-        <p>Date: {{ order.created_on }}</p>
-      </div>
-      <p class="order-info">Order Type: <{{ order.order_type }}</p>
-      <p class="order-info">Customer: <{{ order.customer }}</p>
-      <p class="order-info">Special Instructions: {{ order.special_instructions }}</p>
-      <p class="order-info">Total price: KSH {{ order.price }}</p>
-      <p class="order-info">Status: {{ order.order_status }}</p>
+  
 
-      <h4 style="margin-top: 20px;">Menu Items:</h4>
-      <ul style="margin-bottom: 20px;">
-        {% for item in order.menu_items.all %}
-          {% if not item.displayed %}
-            <li><strong >{{ item.name }}</strong> - Price: KSH <strong>{{ item.price }}</strong></li>
-            <h4 style="margin-top: 10px;">Reviews:</h4>
-            <div class="reviews">
-              {% for review in item.reviews.all %}
-                <p>Customer: <strong>{{ review.customer_name.username }}</strong></p>
-                <p>Rating: <strong>{{ review.rating }}</strong></p>
-                <p>Review: <strong>{{ review.review_text }}</strong></p>
-                <p>Submitted: <strong>{{ review.timestamp|timesince }}</strong> ago</p>
-                <hr>
-              {% empty %}
-                <li>No reviews for this item yet.</li>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% empty %}
-          <li>No menu items found.</li>
-        {% endfor %}
-      </ul>
+  <form method="POST" >
+    {% csrf_token %}
 
-      <form action="{% url 'order_statuss'  %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="order_id" value="{{ order.pk }}">
-        <label for="order_status">Update Status:</label>
-        <select name="order_status" id="order_status">
-          <option value="ORDER_PREPARING">Order is being prepared</option>
-          <option value="ORDER_READY">Order is ready for you</option>
-          <option value="ORDER_DISPATCHED">Order dispatched</option>
-        </select>
-        <button type="submit">Update</button>
-      </form>
+    <div class="form">
+      <label for="fromdate">From:</label>
+      <input type="date" id="fromdate" name="fromdate">
+      <label for="todate">To:</label>
+      <input type="date" id="todate" name="todate">
+      <input type="submit" value="Filter">
     </div>
-  {% endfor %}
+    <hr>
+
+   
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Date</th>
+        <th>Order Type</th>
+        <th>Customer</th>
+        <th>Special Instructions</th>
+        <th>Total Price</th>
+        <th>Status</th>
+        <th>Menu Items</th>
+        <th>Update Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.pk }}</td>
+        <td>{{ order.created_on }}</td>
+        <td>{{ order.order_type }}</td>
+        <td>{{ order.customer.username }}</td>
+        <td>{{ order.special_instructions }}</td>
+        <td>KSH {{ order.price }}</td>
+        <td>{{ order.order_status }}</td>
+        <td>
+          <ul>
+            {% for item in order.menu_items.all %}
+              {% if not item.displayed %}
+                <li><strong>{{ item.name }}</strong> - Price: KSH <strong>{{ item.price }}</strong></li>
+                <ul>
+                  {% for review in item.reviews.all %}
+                    <li>
+                      <strong>Customer:</strong> {{ review.customer_name.username }}
+                      <br>
+                      <strong>Rating:</strong> {{ review.rating }}
+                      <br>
+                      <strong>Review:</strong> {{ review.review_text }}
+                      <br>
+                      <strong>Submitted:</strong> {{ review.timestamp|timesince }} ago
+                    </li>
+                  {% empty %}
+                    <li>No reviews for this item yet.</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% empty %}
+              <li>No menu items found.</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <form action="{% url 'order_statuss' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order.pk }}">
+            <label for="order_status">Update Status:</label>
+            <select name="order_status" id="order_status">
+              <option value="ORDER_PREPARING">Order is being prepared</option>
+              <option value="ORDER_READY">Order is ready for you</option>
+              <option value="ORDER_DISPATCHED">Order dispatched</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  
 {% endblock %}

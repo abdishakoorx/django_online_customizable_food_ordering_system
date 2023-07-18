@@ -31,10 +31,19 @@
         <nav>
             <ul>
                 <li>
+                    <a href="{% url 'customer_profile' %}">Profile</a>
+                </li>
+                <li>
+                    <a href="{% url 'restaurant_list' %}">Dashboard</a>
+                </li>
+                <li>
+                    <a href="{% url 'customer_receipt' %}">Receipt</a>
+                </li>
+                <li>
                     <a href="{% url 'order_history' %}">Order History</a>
                 </li>
                 <li>
-                    <a href="{% url 'index' %}" class="active" >Logout</a>
+                    <a href="{% url 'logout' %}" class="active" >Logout</a>
                 </li>
             </ul>
         </nav>

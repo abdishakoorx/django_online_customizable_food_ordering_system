@@ -1,0 +1,354 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <style>
+        .headings {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          .headings h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 18px;
+          }
+
+          form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 40px;
+
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+            background-color: #337ab7;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        button.delete-button {
+            background-color: #d9534f;
+            font-size: 18px;
+        }
+        
+        button:hover {
+            background-color: #286090;
+        }
+        
+        button.delete-button:hover {
+            background-color: #c9302c;
+        }  
+
+        .menu-items {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .menu h1 {
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+                        
+        .menu-items-list {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-gap: 20px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+        
+        .menu-item {
+            grid-column: span 2;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .item-info {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #3c00a0;
+            margin-bottom: 10px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        
+        .add-menu-item {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            margin-top: 70px;
+        }
+        
+        .add-menu-item h2 {
+            margin-bottom: 10px;
+        }
+        
+        .add-menu-item form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .add-menu-item form > * {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        .add-menu-item input[type="text"],.add-menu-item input[type="number"],.add-menu-item textarea,.add-menu-item select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        .add-menu-item button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+            background-color: #337ab7;
+            cursor: pointer;
+        }
+        
+        .add-menu-item button:hover {
+            background-color: #286090;
+        }
+        
+        .image {
+            display: flex;
+            flex-direction: block;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .image label {
+            margin-bottom: 15px;
+        }
+        
+        .image img {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+        }  
+        
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px;
+          }
+          
+          .search-container button.search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3c00a0;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          
+          #search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+          }
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="headings">
+        <h1> {{ user.username }}'s Profile</h1>
+    </div>
+
+    <form method="POST" action="{% url 'restaurant_profile' %}">
+        {% csrf_token %}
+        <div class="username">
+            <label for="id_username">Username:</label>
+            <input type="text" id="id_username" name="username" value="{{ restaurant.user.username }}" required>
+        </div>
+        <br>
+        <div class="image">
+            <label for="id_image" style="margin-bottom: 15px;">Image:</label>
+            <input type="file" id="id_image" name="image">
+            <img src="{{ restaurant.image.url }}" alt="Restaurant Image">
+        </div>
+        <br>
+        <div class="email">
+            <label for="id_email">Email:</label>
+            <input type="email" id="id_email" name="email" value="{{ restaurant.user.email }}" required>
+        </div>
+        <br>
+        <div class="contact">
+            <label for="id_contact">Contact:</label>
+            <input type="text" id="id_contact" name="contact" value="{{ restaurant.contact }}" required>
+        </div>
+        <br>
+        <div class="opentime">
+            <label for="id_opentime">Open Time:</label>
+            <input type="time" id="id_opentime" name="contact" value="{{ restaurant.opentime }}" >
+        </div>
+        <br>
+        <div class="closetime">
+            <label for="id_closetime">Close Time:</label>
+            <input type="time" id="id_closetime" name="closetime" value="{{ restaurant.closetime }}" >
+        </div>
+        <br>
+        <div class="buttons-container">
+            <button type="submit" name="action" value="update">Update Account</button>
+            <button type="submit" name="action" value="delete" class="delete-button">Delete Account</button>
+        </div>
+    </form>
+    <hr style="margin-bottom: 20px;">
+    <div class="change-password" style="text-align: center; margin-top: 40px;">
+        <form method="post" action="{% url 'restaurant_profile' %}">
+            {% csrf_token %}
+            {{ password_form.as_p }}
+            <button type="submit" name="action" value="change_password">Change Password</button>
+        </form>
+    </div>
+    
+    <br>
+    <br>
+    <hr>
+
+    <div class="menu-items">
+        
+        {% if restaurant.menus.exists %}
+            {% for menu in restaurant.menus.all %}
+                <div class="menu"><h1>{{ menu }}</h1></div>
+                <form action="" method="GET">
+                    <div class="search-container" id="search-container">
+                        <input type="text" name="search" placeholder="Search items...">
+                        <button type="submit" class="search-button">Search</button>
+                    </div>
+                </form>
+                {% if menu.items.exists %}
+                    <ul class="menu-items-list">
+                        {% for item in menu_items %}
+                            <li class="menu-item">
+                                <div class="item-info">
+                                    {{ item.name }} -  Category: {{ item.category }}
+                                    <hr>
+                                </div>
+                                <form method="POST" action="{% url 'restaurant_profile' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="update_menu_item">
+                                    <input type="hidden" name="menu_item_id" value="{{ item.id }}">
+                                    <strong style="margin-top: 10px;">Name:</strong> <input type="text" name="updated_name" value="{{ item.name }}">
+                                    <strong style="margin-top: 10px;">Description:</strong> <input type="text" name="updated_description" value="{{ item.description }}">
+                                    <strong style="margin-top: 10px;">Image:</strong> <input type="file" name="updated_image">
+                                    <strong style="margin-top: 10px;">Price:</strong> <input type="text" name="updated_price" value="{{ item.price }}">
+                                    <div class="buttons-container">
+                                        <button type="submit">Update Item</button>
+                                    </div>
+                                </form>
+                                <form method="POST" action="{% url 'restaurant_profile' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="delete_menu_item">
+                                    <input type="hidden" name="menu_item_id" value="{{ item.id }}">
+                                    <div class="buttons-container">
+                                        <button type="submit" class="delete-button">Delete Item</button>
+                                    </div>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No menu items found for this menu.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No menus found for this restaurant.</p>
+        {% endif %}
+    </div>
+    
+
+
+    <div class="add-menu-item">
+        <h2>Add Menu Item</h2>
+        <form method="POST" action="{% url 'restaurant_profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add">
+            <select name="menu_id" required>
+                {% for menu in restaurant.menus.all %}
+                    <option value="{{ menu.id }}">{{ menu }}</option>
+                {% endfor %}
+            </select>
+            <select name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="name" placeholder="Name" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="file" name="image" required>
+            <input type="number" name="price" placeholder="Price" required>
+            <input type="number" name="calories" placeholder="Calories" required>
+            <input type="number" name="protein" placeholder="Protein" required>
+            <input type="number" name="carbs" placeholder="Carbs" required>
+            <input type="number" name="fat" placeholder="Fat" required>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+    
+
+{% endblock %}

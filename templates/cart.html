@@ -1,0 +1,138 @@
+{% extends 'base1.html' %}
+
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    
+    <style>
+        .headings {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          .headings h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 18px;
+          }
+          
+          .headings p {
+            font-size: 18px;
+            color: #666;
+          }
+
+          .pretty {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+          .pretty ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pretty li {
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+        }
+
+        .pretty h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px; 
+            margin: 0 auto;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            color: #fff;
+        }
+        
+        .intaSendPayButton,
+        .cancel-button {
+            flex: 1;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .intaSendPayButton {
+            background-color: #337ab7;
+        }
+        
+        .cancel-button {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        
+        .intaSendPayButton:hover {
+            background-color: #286090;
+        }
+        
+        .cancel-button:hover {
+            background-color: #c9302c;
+        }
+        
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="headings">
+        <h1>Welcome to your Checkout!</h1>
+        <h2></h2>
+        <p></p>
+    </div>
+
+    <div class="pretty">
+        <ul>
+            {% for menu_item in menu_items %}
+              <li>
+                {{ menu_item.name }} - KSH {{ menu_item.price }}
+              </li>
+            {% endfor %}
+            <h2>Total: KSH {{ total_price }}</h2>
+        </ul>
+    </div>
+    
+    <div class="button-container">
+        <button class="intaSendPayButton" data-amount="10" data-currency="KES">Pay Now</button>
+        <button class="cancel-button"><a href="{% url 'restaurant_list' %}">Cancel</a></button>
+    </div>
+    
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@3.0.4/build/intasend-inline.js"></script>
+
+    <script>
+        new window.IntaSend({
+            publicAPIKey: "ISPubKey_test_5545533a-3242-43e2-a737-cbbff8e5dfa2",
+            live: false //set to true when going live
+        })
+        .on("COMPLETE", (results) => window.location.href = "{% url 'order_confirmation' %}")
+        .on("FAILED", (results) => window.location.href = "{% url 'restaurant_list' %}")
+        .on("IN-PROGRESS", (results) => console.log("Payment in progress status", results))
+    </script>
+{% endblock %}

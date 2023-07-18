@@ -78,3 +78,31 @@ class LoginForm(forms.Form):
     )
 
 
+
+class ReportFilterForm(forms.Form):
+    MONTH_CHOICES = [
+        ('', 'Select Month'),
+        ('1', 'January'),
+        ('2', 'February'),
+        ('3', 'March'),
+        ('4', 'April'),
+        ('5', 'May'),
+        ('6', 'June'),
+        ('7', 'July'),
+        ('8', 'August'),
+        ('9', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December')
+    ]
+
+    WEEK_CHOICES = [
+        ('', 'Select Week'),
+        ('1', 'Week 1'),
+        ('2', 'Week 2'),
+        ('3', 'Week 3'),
+        ('4', 'Week 4')
+    ]
+
+    month = forms.ChoiceField(choices=MONTH_CHOICES, required=False)
+    week = forms.ChoiceField(choices=WEEK_CHOICES, required=False)

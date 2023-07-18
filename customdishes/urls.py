@@ -36,11 +36,20 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('restaurant_list/', views.restaurant_list, name='restaurant_list'),
     path('restaurant/orders/', views.restaurant_orders, name='restaurant_orders'),
+    path('restaurant/receipt/', views.restaurant_receipt, name='restaurant_receipt'),
     path('order/<int:restaurant_id>/', ordersave.as_view(), name='order'),
+     path('order-confirmation/', views.order_confirmation, name='order_confirmation'),
     path('restaurant/orders/update_status/', views.order_statuss, name='order_statuss'),
     path('order/history/', views.order_history, name='order_history'),
+    path('customer/receipt/', views.customer_receipt, name='customer_receipt'),
     path('submit_item_review/<int:item_id>/', views.submit_item_review, name='item_review'),
     path('item/reviews/<int:item_id>/', views.item_reviews, name='item_reviews'),
+    path('report/',views.report_view, name='report'),
+    path('customer_profile/', views.customer_profile, name='customer_profile'),
+    path('restaurant_profile/', views.restaurant_profile, name='restaurant_profile'),
+    path('download-report/', views.download_report, name='download_report'),
+    path('download_restaurant_receipt/', views.download_restaurant_receipt, name='download_restaurant_receipt'),
+    path('download_customer_receipt/', views.download_customer_receipt, name='download_customer_receipt'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,6 +14,7 @@ import os
 import pytz
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +28,16 @@ SECRET_KEY = 'django-insecure-p6e)qzzs7ul207oj2&18@v%$lamd@cy)xr-wc-tz(boenf@f!u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '0178-105-163-1-140.ngrok-free.app',
+]
+
+
+
+
+
 
 
 # Application definition
@@ -40,16 +50,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'customdishes.urls'
@@ -148,3 +161,17 @@ AUTH_USER_MODEL = 'customize.User'
 
 # Set the time zone to East African Time (EAT)
 TIME_ZONE = 'Africa/Nairobi'
+
+
+
+
+# CORS
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'https://d211-102-140-242-179.ngrok-free.app',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://d211-102-140-242-179.ngrok-free.app',
+]

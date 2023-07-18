@@ -7,14 +7,48 @@
 {% block head %}
   {{ block.super }}
   <link rel="stylesheet" type="text/css" href="{% static 'restaurant_list.css' %}">
+  <style>
+    .search-container input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 5px;
+      }
+      
+      .search-container button.search-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #3c00a0;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      #search-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+  </style>
 {% endblock %}
 
 {% block content %}
     <div class="headings">
         <h1>Welcome to CustomDishes!</h1>
         <p>These are the restaurants available.</p>
+        <br>
         <p>Click on the restaurant's name to view more about them!</p>
     </div>
+
+    <form action="" method="GET">
+        <div class="search-container" id="search-container">
+            <input type="text" name="search" placeholder="Search restaurant..." value="{{ request.GET.search }}">
+            <button type="submit" class="search-button">Search</button>
+        </div>
+    </form>
+    
 
     <div class="restaurant-container">
         {% for restaurant in restaurants %}

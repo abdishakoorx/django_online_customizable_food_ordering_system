@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 from datetime import time
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 # Create your models here.
 
@@ -49,7 +50,7 @@ class Restaurant(models.Model):
 
 
 class Menu(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='menus')
 
     
     def __str__(self):
@@ -93,16 +94,16 @@ class Category(models.Model):
 
 
 class MenuItem(models.Model):
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name='items')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='images/')
     price = models.IntegerField()
-    calories = models.IntegerField()
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    fat = models.IntegerField()
+    calories = models.IntegerField(blank=True)
+    protein = models.IntegerField(blank=True)
+    carbs = models.IntegerField(blank=True)
+    fat = models.IntegerField(blank=True)
 
     def average_rating(self):
         reviews = self.reviews.all()
@@ -158,3 +159,30 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review for {self.menu_item.name} by {self.customer_name}"
+    
+
+
+
+
+class UserActivity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_type = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(default=timezone.now)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.activity_type}'
+    
+
+
+class Transaction(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Transaction {self.id} for Order {self.order.pk}"

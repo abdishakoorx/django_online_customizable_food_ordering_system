@@ -5,21 +5,28 @@
 {% block head %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'order.css' %}">
+    
 {% endblock %}
 
 {% block content %}
     <div class="headings">
         <h1>Welcome!</h1>
         <h2>Menu for {{ menu.restaurant.name }}</h2>
-        <p>Check on the items you like.</p>
+        <br>
+        <p>Check on at least one item that you like.</p>
     </div>
-    
+    <form action="" method="GET">
+        <div class="search-container" id="search-container">
+            <input type="text" name="search" placeholder="Search items...">
+            <button type="submit" class="search-button">Search</button>
+        </div>
+    </form>
 
     <form method="POST">
         {% csrf_token %}
 
         {% for category, items in menu_items_by_category.items %}
-        <h1 class="heading">{{ category.name }}</h1>
+            <h1 class="heading">{{ category.name }}</h1>
 
             {% if items %}
                 <div class="snack-container">
@@ -33,24 +40,23 @@
                             <img src="{% static 'path_to_default_image' %}" alt="{{ item.name }}">
                         {% endif %}
                         <input type="checkbox" name="items[]" value="{{ item.pk }}">
-                        <div>
+                        <div class="link">
                             <a href="{% url 'item_reviews' item.pk %}" class="review-button">See Reviews</a>
                         </div>
                         <div class="desc">
-                            <p>{{ item.description }}</p>
+                            <p style="font-size: 12.5px;font-weight: 500;">{{ item.description }}</p>
                         </div>
                         <div class="numbers">
-                            <p>Price: KSH {{ item.price }}</p>
-                            <p>Calories: {{ item.calories }}g</p>
-                            <p>Protein: {{ item.protein }}g</p>
-                            <p>Carbs: {{ item.carbs }}g</p>
-                            <p>Fat: {{ item.fat }}g</p>
+                            <p><strong>Price:</strong> KSH {{ item.price }}</p>
+                            <p><strong>Calories:</strong> {{ item.calories }}g</p>
+                            <p><strong>Protein:</strong> {{ item.protein }}g</p>
+                            <p><strong>Carbs:</strong> {{ item.carbs }}g</p>
+                            <p><strong>Fat:</strong> {{ item.fat }}g</p>
                         </div>
-                
-                </div>
-            {% empty %}
-                <p>No menu items available in this category.</p>
-            {% endfor %}
+                    </div>
+                    {% empty %}
+                        <p>No menu items available in this category.</p>
+                    {% endfor %}
                 </div>
             {% else %}
                 <p>No menu items available in this category.</p>
@@ -66,22 +72,31 @@
         <h2 style="margin-right: 8px;"><label for="instructions">Special Instructions</label><br></h2>
         <textarea id="instructions" name="instructions" style="font-size: 20px;"></textarea><br>
         </div>
-    
+        
+        <div class="order_type" style="display: flex; justify-content: center; margin-top: 70px; font-weight: bold; color: #3c00a0; font-size: 16px;">
+            <h2>Order Type</h2>
+        </div>
         <div class="options">
-        <div class="options-1">
-            <h2><label for="takeaway">Takeaway</label></h2>
-            <input type="radio" name="order_type" id="takeaway" value="takeaway" style="height: 10vh;">
+            <div class="options-1">
+                <h2><label for="takeaway">Takeaway</label></h2>
+                <input type="radio" name="order_type" id="takeaway" value="TAKE_AWAY" style="height: 10vh;" required>
+            </div>
+            
+            <div class="option-2">
+                <h2><label for="dine-in">Dine-in</label></h2>
+                <input type="radio" name="order_type" id="dine-in" value="DINE_IN" style="height: 10vh;">
+            </div>
         </div>
-    
-        <div class="option-2">
-            <h2><label for="dine-in">Dine-in</label></h2>
-            <input type="radio" name="order_type" id="dine-in" value="dine-in" style="height: 10vh;">
-        </div>
-        </div>
+        
+
+        
     
         <div class="centered-container">
-        <button type="submit" class="pretty-button">Place Order!</button>
+            <button type="submit" class="pretty-button">Checkout</button>
         </div>
     </form>
+
+
+    
         
 {% endblock %}

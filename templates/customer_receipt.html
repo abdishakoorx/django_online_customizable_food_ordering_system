@@ -1,0 +1,258 @@
+{% load static %}
+{% static "images" as baseUrl %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Receipts</title>
+    <style>
+        .headings {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          .headings h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 18px;
+          }
+          
+          .headings p {
+            font-size: 18px;
+            color: #666;
+          }
+          .form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+        
+        .form label {
+            font-weight: bold;
+        }
+        
+        .form input[type="date"], .form input[type="submit"] {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        .form input[type="submit"] {
+            background-color: #337ab7;
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            width: 90px;
+            height: 30px;
+        }
+        .order-list {
+            list-style-type: none;
+            padding: 0;
+            background-color: white;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+          }
+          
+          .order-item {
+            margin-bottom: 20px;
+          }
+          
+          .order-label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+          }
+          
+          .order-details {
+            border: 3px solid #3c00a0;
+            padding: 10px;
+            border-radius: 8px;
+          }
+          
+          .order-info {
+            margin: 5px 0;
+            font-size: 16px;
+          }
+          
+          .price{
+            margin-top: 30px;
+            font-size: 20px;
+            color: #000;
+            font-weight: bolder;
+          }
+          .alink {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .alink a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Green color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+          }
+          
+          .logo h1 {
+            margin-right: 10px;
+          }
+          
+          .logo1 {
+            display: flex;
+            flex-direction: column;
+          }
+          
+          
+          .logo h1, .logo1 h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+          }
+          
+          .logo h3 {
+            font-size: 14px;
+            margin: 0;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+        
+          th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+          }
+        
+          th {
+            background-color: #f2f2f2;
+          }
+        
+          tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+        
+          ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 10px;
+          }
+        
+          li.menu-item {
+            margin: 5px 0;
+          }
+        
+          .order-item {
+            margin-bottom: 20px;
+          }
+        
+          hr {
+            margin: 20px 0;
+          }
+        
+          .order-label p {
+            margin: 5px 0;
+          }
+        
+          .price {
+            margin-top: 20px;
+          }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <h1><a href="/"><img src="{{baseUrl}}/logo.jpg" alt="" id=""></a></h1>
+        <div class="logo1">
+            <h1>CustomDishes</h1>
+            <h3>Your order, Your way, Every day</h3>
+        </div>
+    </div>
+    
+    <div class="headings">
+        <a href="{% url 'customer_profile' %}"><h1>Receipts</h1></a>
+        <p></p>
+    </div>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="date" name="fromdate" hidden>
+        <input type="date" name="todate" hidden>
+        <div class="alink">
+            <a href="{% url 'download_customer_receipt' %}?fromdate={{ fromdate }}&todate={{ todate }}" target="_blank">Download Receipts</a>
+        </div>        
+    </form>
+
+    <form method="POST" >
+        {% csrf_token %}
+
+        <div class="form">
+            <label for="fromdate">From:</label>
+            <input type="date" id="fromdate" name="fromdate">
+            <label for="todate">To:</label>
+            <input type="date" id="todate" name="todate">
+            <input type="submit" value="Filter">
+        </div>
+        <hr>
+
+        
+        <ul class="order-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Ordered From</th>
+                <th>Menu Items</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>{{ order.pk }}</td>
+                <td>{{ order.created_on }}</td>
+                <td>{{ order.restaurant.name }}</td>
+                <td>
+                  <ul>
+                    {% for item in order.menu_items.all %}
+                      <li>{{ item.name }} - Price: KSH {{ item.price }}</li>
+                    {% empty %}
+                      <li>No menu items found.</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>KSH {{ order.price }}</td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <hr style="margin: 20px 0;">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <h2>Total number of orders: {{ orders|length }}</h2>
+        </ul>
+    </form>
+    
+</body>
+</html>

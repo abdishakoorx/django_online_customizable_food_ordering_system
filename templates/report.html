@@ -1,0 +1,282 @@
+{% load static %}
+{% static "images" as baseUrl %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <style>
+        .headings {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          .headings h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 18px;
+          }
+          
+          .headings p {
+            font-size: 18px;
+            color: #666;
+          }
+          
+        .logo {
+            display: flex;
+            align-items: center;
+          }
+          
+          .logo h1 {
+            margin-right: 10px; /* Adjust the spacing between the logo and text */
+          }
+          
+          .logo1 {
+            display: flex;
+            flex-direction: column;
+          }
+          
+          /* Additional styling for h1 and h3 */
+          .logo h1, .logo1 h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+          }
+          
+          .logo h3 {
+            font-size: 14px;
+            margin: 0;
+          }
+          .form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+        
+        .form label {
+            font-weight: bold;
+        }
+        
+        .form input[type="date"], .form input[type="submit"] {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        .form input[type="submit"] {
+            background-color: #337ab7;
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            width: 90px;
+            height: 30px;
+        }
+        .alink {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .alink a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Green color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .body h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .body table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .body th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        .body th {
+            background-color: #f2f2f2;
+        }
+
+       
+
+        
+
+        .body hr {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">
+        <h1><img src="{% static 'images/logo.jpg' %}" alt="" id=""></h1>
+        <div class="logo1">
+            <h1>CustomDishes</h1>
+            <h3>Your order, Your way, Every day</h3>
+        </div>
+    </div>
+
+    <div class="headings">
+        <h1>Admin Report</h1>
+    </div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="date" name="fromdate" hidden>
+        <input type="date" name="todate" hidden>
+        <div class="alink">
+            <a href="{% url 'download_report' %}?fromdate={{ fromdate }}&todate={{ todate }}" target="_blank">Download Report</a>
+        </div> 
+    </form>
+
+    <form method="POST" >
+        {% csrf_token %}
+
+        <div class="form">
+            <label for="fromdate">From:</label>
+            <input type="date" id="fromdate" name="fromdate">
+            <label for="todate">To:</label>
+            <input type="date" id="todate" name="todate">
+            <input type="submit" value="Filter">
+        </div>
+        <hr>
+        
+
+        <div class="body">
+            <h1 style="color: #3c00a0;">Customer Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                    {% if not request.GET.date or request.GET.date == customer.user.date_joined|date:"Y-m" %}
+                        <tr>
+                            <td>{{ customer.username }}</td>
+                            <td>{{ customer.contact }}</td>
+                            <td>{{ customer.user.email }}</td>
+                            <td>{{ customer.user.date_joined }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Total number of customers: {{ customers|length }}</h2>
+        <hr>
+        <h1 style="color: #3c00a0;">Restaurant Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for restaurant in restaurants %}
+                    {% if not request.GET.date or request.GET.date == restaurant.user.date_joined|date:"Y-m" %}
+                        <tr>
+                            <td>{{ restaurant.username }}</td>
+                            <td>{{ restaurant.contact }}</td>
+                            <td>{{ restaurant.user.email }}</td>
+                            <td>{{ restaurant.location }}</td>
+                            <td>{{ restaurant.user.date_joined }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Total number of restaurants: {{ restaurants|length }}</h2>
+        <hr>
+
+        <h1 style="color: #3c00a0;">Order Report</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Restaurant</th>
+                        <th>Created On</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        {% if not request.GET.date or request.GET.date == order.created_on|date:"Y-m" %}
+                            <tr>
+                                <td>{{ order.customer.username }}</td>
+                                <td>{{ order.restaurant.username }}</td>
+                                <td>{{ order.created_on }}</td>
+                                <td>KSH {{ order.price }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Total number of orders: {{ orders|length }}</h2>
+            <hr>
+        
+        <h1 style="color: #3c00a0;">Transaction Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Restaurant</th>
+                    <th>Order</th>
+                    <th>Amount </th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for transaction in transactions %}
+                    {% if not request.GET.date or request.GET.date == transaction.timestamp|date:"Y-m" %}
+                        <tr>
+                            <td>{{ transaction.customer.username }}</td>
+                            <td>{{ transaction.restaurant.username }}</td>
+                            <td>{{ transaction.order.id }}</td>
+                            <td>KSH {{ transaction.amount }}</td>
+                            <td>{{ transaction.timestamp }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+        </table>
+        <h2>Total amount of transactions: KSH {{ total_amount }}</h2>
+        </div>
+
+    </form>
+    
+</body>
+</html>
